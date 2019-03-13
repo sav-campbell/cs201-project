@@ -1,3 +1,9 @@
+/*
+The createBoard class is used to create the board that the player will see and
+transfer the necessary information that it takes in to the class that checks
+for wins and creates the actual game mechanics. This class makes the UI easier
+to maintain rather than working through the linked list and graph each time.
+*/
 #include <stdio.h>
 #include "setPiece.c"
 
@@ -17,6 +23,15 @@ void printBoard(int x, int y, char print[x][y]){
     for(int j = 0; j <= y; j++)
       printf("%c", print[i][j]);
     printf("\n");
+  }
+}
+
+void printNum(int x, int print[x]){
+  for(int i = 0; i < x; i++){
+    if(i < 10)
+      printf(" %d", print[i]);
+    else
+      printf("%d", print[i]);
   }
 }
 
@@ -42,15 +57,18 @@ int generateBoard(void){
   }
 
   fillBoard(height, y, board);
-  printBoard(height, y, board);
-
-  //This loop prints the rowNum array bc I don't know how I'm organizing my code yet
-  for(int i = 0; i < width; i++)
-    printf(" %d", rowNum[i]);
+  int win = 0;
+  while(win == 0){
+    printBoard(height, y, board);
+    printNum(width, rowNum);
+    if(placePiece(chooseRow(y), height, y, board, win) != 0)
+      win = 1;
+  }
 
 //  playerOne(y, height, board);
   return 0;
 }
+
 
 /*
 void playerOne(int width, int height, char board[height][width]){
