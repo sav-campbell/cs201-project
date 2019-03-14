@@ -12,7 +12,7 @@ int chooseRow(int width){
     else
       break;
   }
-  choice = choice + (choice - 1);
+  choice = (choice + (choice - 1));
   return choice;
 }
 
@@ -20,19 +20,17 @@ int chooseRow(int width){
 //and place the new piece accordingly
 int placePiece(int num, int height, int width, char board[height][width], int win){
   int row = height-1;
+  win = 0;
   for(int i = height-1; i >= 0; i--){ //This loop places the piece where it needs to be
     if(board[i][num] != 'X'){
       board[i][num] = 'X';
+      row = i;
       i = -1;
-      win = 0;
-      printf("\ncheck 1\n");
     }
-    else
-      row--;
   }
-  printf("%d", row);
+  //printf("%d", row);
   win = checkWin(num, row, height, width, board);
-  printf("\ncheck2\n");
+  //printf("\ncheck2\n");
   return win;
 }
 
