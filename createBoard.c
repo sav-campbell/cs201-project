@@ -80,13 +80,22 @@ int generateBoard(void){
   while(win == 0){
     printBoard(height, y, board);
     printNum(width, rowNum);
-    if(placePiece(chooseRow(y), height, y, board, win) != 0)
-      win = 1;
+    printf("\nPlayer One's Turn:");
+    win = placePiece(chooseRow(y), height, y, board, 1);
+    if(win != 0)
+      break;
+    printBoard(height, y, board);
+    printNum(width, rowNum);
+    printf("\nPlayer Two's Turn: ");
+    win = placePiece(chooseRow(y), height, y, board, 2);
   }
 
   printBoard(height, y, board);
   printNum(width, rowNum);
-  printf("\nYou win!\n\n");
+  if(win == 1)
+    printf("\nPlayer 1 wins!\n\n");
+  else
+    printf("\nPlayer 2 wins!\n\n");
 
 //  playerOne(y, height, board);
   return 0;

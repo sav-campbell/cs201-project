@@ -11,12 +11,12 @@ void Graph(int height, int width, int search[height][width]){
 }
 
 int searchRight(int right, int col, int row, int height, int width, char board[height][width]){
-    while(board[row][col] == board[row][col+2]){
+  while(board[row][col] == board[row][col+2]){
         right++;
         col = col + 2;
-    }
+  }
 
-    return right;
+  return right;
 }
 
 int searchLeft(int left, int col, int row, int height, int width, char board[height][width]){
@@ -35,32 +35,39 @@ int searchBelow(int below, int col, int row, int height, int width, char board[h
     return below;
 }
 
-int seachDiagLeft(){
-    int match = 0;
-    return match;
+int searchDiagUp(int up, int col, int row, int height, int width, char board[height][width]){
+  int tempRow = row;
+  int tempCol = col;
+  while(board[tempRow][tempCol] == board[tempRow-1][tempCol+2]){
+    up++;
+    tempRow = tempRow - 1;
+    tempCol = tempCol + 2;
+  }
+  while(board[row][col] == board[row+1][col-2]){
+    up++;
+    row = row +1;
+    col = col -2;
+  }
+
+  return up;
 }
 
-int searchDiagRight(){
-    int match = 0;
-    return match;
+int searchDiagDown(){
+  return 0;
 }
+
 
 int checkWin(int col, int row, int height, int width, char board[height][width]){
-//  int match = 1;
-  int right = 1;
-  int left = 0;
   int below = 1;
   int winner = 0;
+  int across = 1;
+  int up = 1;
 
-  right = searchRight(right, col, row, height, width, board);
-  left = searchLeft(left, col, row, height, width, board);
+  across += searchRight(0, col, row, height, width, board) + searchLeft(0, col, row, height, width, board);
   below = searchBelow(below, col, row, height, width, board);
-//printf("\nr: %d l: %d b: %d\n", right, left, below);
-  if(right >= 4)
-    winner = 1;
-  else if(left >= 4)
-    winner = 1;
-  else if((left+right) >= 4)
+  up = searchDiagUp(up, col, row, height, width, board);
+
+  if(across >= 4)
     winner = 1;
   else if(below >= 4)
     winner = 1;
