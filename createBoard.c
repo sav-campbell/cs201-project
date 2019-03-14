@@ -5,8 +5,10 @@ for wins and creates the actual game mechanics. This class makes the UI easier
 to maintain rather than working through the linked list and graph each time.
 */
 #include <stdio.h>
+#include <ctype.h>
 #include "setPiece.c"
 
+//This function initializes the board array that the user will see.
 void fillBoard(int x, int y, char board[x][y]){
   for(int i = 0; i < x; i++){
     for(int j = 0; j <= y; j++){
@@ -37,12 +39,29 @@ void printNum(int x, int print[x]){
 
 
 int generateBoard(void){
-  int width, height; //Should these be global variables? bad idea but like maybe
+  int width, height;
 
-  printf("What is the height of the board?");
-  scanf("%d", &height);
-  printf("What is the width of the board?");
-  scanf("%d", &width);
+  //This loop gets a valid size for the board
+  while(1){
+    char answer = ' ';
+    printf("\nWhat is the height of the board?");
+    scanf("%d", &height);
+    printf("\nWhat is the width of the board?");
+    scanf("%d", &width);
+    if(height < 4 || width < 4)
+      printf("\nThe height and width must be greater than or equal to 4.\nTry again.\n");
+    else if(height > 40 || width > 40){
+      printf("\nBoard sizes greater than 40x40 will have unweildy screen handling.");
+      printf("\nDo you wish to continue anyway (Y/N)?");
+      scanf("%c", &answer);
+      answer = tolower(answer);
+      if(answer == 'y')
+        break;
+    }
+    else
+      break;
+  }
+
   int y = width*2;
 
   char board[height][y];
@@ -64,6 +83,10 @@ int generateBoard(void){
     if(placePiece(chooseRow(y), height, y, board, win) != 0)
       win = 1;
   }
+
+  printBoard(height, y, board);
+  printNum(width, rowNum);
+  printf("\nYou win!\n\n");
 
 //  playerOne(y, height, board);
   return 0;
