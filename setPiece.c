@@ -49,7 +49,7 @@ int placePiece(int num, int height, int width, char board[height][width], int ke
   else if(key == 2)
     row = playerTwo(num, height, width, board);
 
-  win = checkWin(num, row, height, width, board);
+  win = checkWin(num, row, height, width, board, key);
   //printf("%d", win);
   //printf("\ncheck2\n");
   return win;

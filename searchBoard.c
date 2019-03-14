@@ -57,7 +57,7 @@ int searchDiagDown(){
 }
 
 
-int checkWin(int col, int row, int height, int width, char board[height][width]){
+int checkWin(int col, int row, int height, int width, char board[height][width], int key){
   int below = 1;
   int winner = 0;
   int across = 1;
@@ -66,11 +66,20 @@ int checkWin(int col, int row, int height, int width, char board[height][width])
   across += searchRight(0, col, row, height, width, board) + searchLeft(0, col, row, height, width, board);
   below = searchBelow(below, col, row, height, width, board);
   up = searchDiagUp(up, col, row, height, width, board);
+  if(key == 1){
+    if(across >= 4)
+      winner = 1;
+    else if(below >= 4)
+      winner = 1;
+  }
+  else if(key == 2)
+  {
+    if(across >= 4)
+      winner = 2;
+    else if(below >= 4)
+      winner = 2;
+  }
 
-  if(across >= 4)
-    winner = 1;
-  else if(below >= 4)
-    winner = 1;
 
   return winner;
 }

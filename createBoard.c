@@ -92,13 +92,9 @@ int generateBoard(void){
 
   printBoard(height, y, board);
   printNum(width, rowNum);
-  if(win == 1)
-    printf("\nPlayer 1 wins!\n\n");
-  else
-    printf("\nPlayer 2 wins!\n\n");
 
 //  playerOne(y, height, board);
-  return 0;
+  return win;
 }
 
 
