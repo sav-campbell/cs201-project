@@ -12,14 +12,25 @@ int main(void){
   printf("1. Player vs. Computer\n");
   printf("2. Player vs. Player\n");
   printf("3. Computer vs. Computer\n");
-  printf("\nPlease type \"1\" or \"2\" or \"3\"\n");
-  scanf("%d", &players);
-  if(players == 1)
-    printf("\nPlayer vs. Computer Selected. Generating Board.\n\n");
-  if(players == 2)
-    printf("\nPlayer vs. Player Selected. Generating Board.\n\n");
-  if(players == 3)
-    printf("\nComputer vs. Computer Selected. Generating Board.\n\n");
+  while(1){
+    printf("\nPlease type \"1\" or \"2\" or \"3\"\n");
+    scanf("%d", &players);
+    if(players == 1){
+      printf("\nPlayer vs. Computer Selected. Generating Board.\n\n");
+      break;
+    }
+    else if(players == 2){
+      printf("\nPlayer vs. Player Selected. Generating Board.\n\n");
+      break;
+    }
+    else if(players == 3){
+      printf("\nComputer vs. Computer Selected. Generating Board.\n\n");
+      break;
+    }
+    else
+      printf("\nInvalid entry.");
+  }
+
 
   while(1){
     winner = generateBoard();

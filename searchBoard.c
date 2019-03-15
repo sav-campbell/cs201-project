@@ -52,8 +52,22 @@ int searchDiagUp(int up, int col, int row, int height, int width, char board[hei
   return up;
 }
 
-int searchDiagDown(){
-  return 0;
+int searchDiagDown(int down, int col, int row, int height, int width, char board[height][width]){
+  int tempRow = row;
+  int tempCol = col;
+  while(board[tempRow][tempCol] == board[tempRow-1][tempCol-2]){
+    down++;
+    tempRow = tempRow - 1;
+    tempCol = tempCol - 2;
+  }
+  while(board[row][col] == board[row+1][col+2]){
+    down++;
+    row = row+1;
+    col = col+2;
+  }
+
+
+  return down;
 }
 
 
@@ -62,14 +76,21 @@ int checkWin(int col, int row, int height, int width, char board[height][width],
   int winner = 0;
   int across = 1;
   int up = 1;
+  int down = 1;
 
   across += searchRight(0, col, row, height, width, board) + searchLeft(0, col, row, height, width, board);
-  below = searchBelow(below, col, row, height, width, board);
-  up = searchDiagUp(up, col, row, height, width, board);
+  below += searchBelow(0, col, row, height, width, board);
+  up += searchDiagUp(0, col, row, height, width, board);
+  down += searchDiagDown(0, col, row, height, width, board);
+
   if(key == 1){
     if(across >= 4)
       winner = 1;
     else if(below >= 4)
+      winner = 1;
+    else if(up >= 4)
+      winner = 1;
+    else if(down >= 4)
       winner = 1;
   }
   else if(key == 2)
@@ -77,6 +98,10 @@ int checkWin(int col, int row, int height, int width, char board[height][width],
     if(across >= 4)
       winner = 2;
     else if(below >= 4)
+      winner = 2;
+    else if(up >= 4)
+      winner = 2;
+    else if(down >= 4)
       winner = 2;
   }
 
