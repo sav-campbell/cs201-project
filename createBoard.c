@@ -37,8 +37,7 @@ void printNum(int x, int print[x]){
   }
 }
 
-
-int generateBoard(void){
+int generateBoard(int playType){
   int width, height;
 
   //This loop gets a valid size for the board
@@ -77,30 +76,70 @@ int generateBoard(void){
 
   fillBoard(height, y, board);
   int win = 0;
-  while(win == 0){
-    printBoard(height, y, board);
-    printNum(width, rowNum);
-    printf("\nPlayer One's Turn:");
-    win = placePiece(chooseRow(y), height, y, board, 1);
-    if(win != 0)
-      break;
-    printBoard(height, y, board);
-    printNum(width, rowNum);
-    printf("\nPlayer Two's Turn: ");
-    win = placePiece(chooseRow(y), height, y, board, 2);
+  int pieces = 0;
+  switch(playType){
+    case 1:
+    while(win == 0){
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer One's Turn:");
+      win = placePiece(chooseRow(width), height, y, board, 1);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+      if(win != 0)
+        break;
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer Two's Turn: \n");
+      win = placePiece(compChoice(width), height, y, board, 2);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+    } break;
+    case 2:
+    while(win == 0){
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer One's Turn:\n");
+      win = placePiece(chooseRow(width), height, y, board, 1);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+      if(win != 0)
+        break;
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer Two's Turn:\n");
+      win = placePiece(chooseRow(width), height, y, board, 2);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+    } break;
+    case 3:
+    while(win == 0){
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer One's Turn:\n");
+      win = placePiece(compChoice(width), height, y, board, 1);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+      if(win != 0)
+        break;
+      printBoard(height, y, board);
+      printNum(width, rowNum);
+      printf("\nPlayer Two's Turn:\n");
+      win = placePiece(compChoice(width), height, y, board, 2);
+      pieces++;
+      if(pieces == width*height)
+        win = 3;
+    } break;
+    default: break;
   }
+
 
   printBoard(height, y, board);
   printNum(width, rowNum);
-
-//  playerOne(y, height, board);
   return win;
 }
-
-
-/*
-void playerOne(int width, int height, char board[height][width]){
-  placePiece(chooseRow(width), height, width, board);
-  printBoard(height, width, board);
-}
-*/

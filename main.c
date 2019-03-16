@@ -33,15 +33,18 @@ int main(void){
 
 
   while(1){
-    winner = generateBoard();
+    winner = generateBoard(players);
     if(winner == 1){
       printf("\nPlayer 1 wins!\n\n");
       score1++;
     }
-    else{
+    else if(winner == 2){
       printf("\nPlayer 2 wins!\n\n");
       score2++;
     }
+    else if(winner == 3)
+      printf("\nIt's a tie!\n\n");
+
     printf("\nScore: \nPlayer 1: %d \nPlayer 2: %d", score1, score2);
     printf("\nWould you like to play again (Y/N)?");
     scanf(" %c", &answer);

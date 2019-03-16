@@ -70,6 +70,22 @@ int searchDiagDown(int down, int col, int row, int height, int width, char board
   return down;
 }
 
+int checkGreatest(int col, int row, int height, int width, char board[height][width]){
+  int up, down, across, below;
+  across = searchRight(1, col, row, height, width, board) + searchLeft(0, col, row, height, width, board);
+  below = searchBelow(1, col, row, height, width, board);
+  up = searchDiagUp(1, col, row, height, width, board);
+  down = searchDiagDown(1, col, row, height, width, board);
+  if(across > below && across > up && across > down)
+    return 1; //across
+  else if(below > up && below > down)
+    return 2; //below
+  else if(up > down)
+    return 3; //up
+  else
+    return 4; //down
+
+}
 
 int checkWin(int col, int row, int height, int width, char board[height][width], int key){
   int below = 1;
