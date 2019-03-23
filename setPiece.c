@@ -34,9 +34,9 @@ int playerOne(int num, int height, int width, char board[height][width]){
     if(board[i][num] != 'X' && board[i][num] != 'O'){
       board[i][num] = 'X';
       row = i;
-      printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
+      //printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
       i = -1;
-      printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
+      //printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
     }
   }
   return row;
@@ -49,9 +49,9 @@ int playerTwo(int num, int height, int width, char board[height][width]){
 
       board[i][num] = 'O';
       row = i;
-      printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
+    //  printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
       i = -1;
-      printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
+    //  printf("\ni = %d ; num = %d ; row = %d\n", i, num, row);
     }
   }
   return row;
