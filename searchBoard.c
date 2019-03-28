@@ -3,26 +3,29 @@ each time that a player places a piece in the board.
 */
 #include <stdio.h>
 
-void Graph(int height, int width, int search[height][width]){
+/*void Graph(int height, int width, int search[height][width]){
   for(int i = 0; i < height; i++){
     for(int j = 0; j < width; j++)
       search[i][j] = 0;
   }
-}
+}*/
 
 int searchRight(int right, int col, int row, int height, int width, char board[height][width]){
-  while(board[row][col] == board[row][col+2]){
-        right++;
-        col = col + 2;
+  while(board[row][col] == board[row][col+1]){
+    if(col == width){
+      break;
+    }
+    right++;
+    col = col + 1;
   }
 
   return right;
 }
 
 int searchLeft(int left, int col, int row, int height, int width, char board[height][width]){
-  while(board[row][col] == board[row][col-2]){
+  while(board[row][col] == board[row][col-1]){
     left++;
-    col = col - 2;
+    col = col - 1;
   }
   return left;
 }
@@ -38,15 +41,19 @@ int searchBelow(int below, int col, int row, int height, int width, char board[h
 int searchDiagUp(int up, int col, int row, int height, int width, char board[height][width]){
   int tempRow = row;
   int tempCol = col;
-  while(board[tempRow][tempCol] == board[tempRow-1][tempCol+2]){
+
+  while(board[tempRow][tempCol] == board[tempRow-1][tempCol+1]){
+    if(tempCol == width){
+      break;
+    }
     up++;
     tempRow = tempRow - 1;
-    tempCol = tempCol + 2;
+    tempCol = tempCol + 1;
   }
-  while(board[row][col] == board[row+1][col-2]){
+  while(board[row][col] == board[row+1][col-1]){
     up++;
     row = row +1;
-    col = col -2;
+    col = col -1;
   }
 
   return up;
@@ -55,37 +62,24 @@ int searchDiagUp(int up, int col, int row, int height, int width, char board[hei
 int searchDiagDown(int down, int col, int row, int height, int width, char board[height][width]){
   int tempRow = row;
   int tempCol = col;
-  while(board[tempRow][tempCol] == board[tempRow-1][tempCol-2]){
+  while(board[tempRow][tempCol] == board[tempRow-1][tempCol-1]){
     down++;
     tempRow = tempRow - 1;
-    tempCol = tempCol - 2;
+    tempCol = tempCol - 1;
   }
-  while(board[row][col] == board[row+1][col+2]){
+  while(board[row][col] == board[row+1][col+1]){
+    if(col == width){
+      break;
+    }
     down++;
     row = row+1;
-    col = col+2;
+    col = col+1;
   }
 
 
   return down;
 }
 
-int checkGreatest(int col, int row, int height, int width, char board[height][width]){
-  int up, down, across, below;
-  across = searchRight(1, col, row, height, width, board) + searchLeft(0, col, row, height, width, board);
-  below = searchBelow(1, col, row, height, width, board);
-  up = searchDiagUp(1, col, row, height, width, board);
-  down = searchDiagDown(1, col, row, height, width, board);
-  if(across > below && across > up && across > down)
-    return 1; //across
-  else if(below > up && below > down)
-    return 2; //below
-  else if(up > down)
-    return 3; //up
-  else
-    return 4; //down
-
-}
 
 int checkWin(int col, int row, int height, int width, char board[height][width], int key){
   int below = 1;
@@ -120,6 +114,7 @@ int checkWin(int col, int row, int height, int width, char board[height][width],
     else if(down >= 4)
       winner = 2;
   }
+
 
 
   return winner;

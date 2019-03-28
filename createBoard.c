@@ -12,28 +12,44 @@ to maintain rather than working through the linked list and graph each time.
 void fillBoard(int x, int y, char board[x][y]){
   for(int i = 0; i < x; i++){
     for(int j = 0; j <= y; j++){
-      if(j%2 == 0)
-        board[i][j] = '|';
-      else
-          board[i][j] = ' ';
+        board[i][j] = ' ';
     }
   }
 }
 
 void printBoard(int x, int y, char print[x][y]){
-  for(int i = 0; i < x; i++){
-    for(int j = 0; j <= y; j++)
+/*  for(int i = 0; i < x; i++){
+    for(int j = 0; j < y; j++){
       printf("%c", print[i][j]);
+    }
+    printf("\n");
+  }*/
+  /*I might make it pretty with this later
+  for(int i = 0; i < y; i++){
+    printf("-")
+  }*/
+
+  for(int i = 0; i < x; i++){
+    for(int j = 0; j < y; j++){
+        printf("| ");
+        printf("%c ", print[i][j]);
+        if(j == y-1)
+          printf("|");
+    }
     printf("\n");
   }
 }
 
+
+
 void printNum(int x, int print[x]){
+//  printf(" ");
   for(int i = 0; i < x; i++){
     if(i < 10)
-      printf(" %d", print[i]);
+      printf("  %d ", print[i]);
     else
-      printf("%d", print[i]);
+      printf(" %d ", print[i]);
+
   }
 }
 
@@ -61,9 +77,9 @@ int generateBoard(int playType){
       break;
   }
 
-  int y = width*2;
+  //int y = width*2;
 
-  char board[height][y];
+  char board[height][width];
   int rowNum[width]; //this will help the player know what row they're dropping the piece in
   int num = 1;
 
@@ -74,63 +90,63 @@ int generateBoard(int playType){
     num++;
   }
 
-  fillBoard(height, y, board);
+  fillBoard(height, width, board);
   int win = 0;
   int pieces = 0;
   switch(playType){
     case 1:
     while(win == 0){
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer One's Turn:");
-      win = placePiece(chooseRow(width), height, y, board, 1);
+      win = placePiece(chooseRow(width), height, width, board, 1);
       pieces++;
       if(pieces == width*height)
         win = 3;
       if(win != 0)
         break;
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer Two's Turn: \n");
-      win = placePiece(compChoice(width), height, y, board, 2);
+      win = placePiece(compChoice(height, width, board, 2), height, width, board, 2);
       pieces++;
       if(pieces == width*height)
         win = 3;
     } break;
     case 2:
     while(win == 0){
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer One's Turn:\n");
-      win = placePiece(chooseRow(width), height, y, board, 1);
+      win = placePiece(chooseRow(width), height, width, board, 1);
       pieces++;
       if(pieces == width*height)
         win = 3;
       if(win != 0)
         break;
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer Two's Turn:\n");
-      win = placePiece(chooseRow(width), height, y, board, 2);
+      win = placePiece(chooseRow(width), height, width, board, 2);
       pieces++;
       if(pieces == width*height)
         win = 3;
     } break;
     case 3:
     while(win == 0){
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer One's Turn:\n");
-      win = placePiece(compChoice(width), height, y, board, 1);
+      win = placePiece(compChoice(height, width, board, 1), height, width, board, 1);
       pieces++;
       if(pieces == width*height)
         win = 3;
       if(win != 0)
         break;
-      printBoard(height, y, board);
+      printBoard(height, width, board);
       printNum(width, rowNum);
       printf("\nPlayer Two's Turn:\n");
-      win = placePiece(compChoice(width), height, y, board, 2);
+      win = placePiece(compChoice(height, width, board, 2), height, width, board, 2);
       pieces++;
       if(pieces == width*height)
         win = 3;
@@ -139,7 +155,7 @@ int generateBoard(int playType){
   }
 
 
-  printBoard(height, y, board);
+  printBoard(height, width, board);
   printNum(width, rowNum);
   return win;
 }
