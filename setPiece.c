@@ -56,12 +56,15 @@ int playerTwo(int num, int height, int width, char board[height][width]){
 
 
 //This function determines which player is playing and checks for a win.
-int placePiece(int num, int height, int width, char board[height][width], int key){
+int placePiece(int num, int height, int width, char board[height][width], int key, int type){
   int row = height-1;
   int win = 0;
   while(board[0][num] == 'X' || board[0][num] == 'O'){
     printf("Invalid choice. Try again.\n");
-    num = chooseRow(width);
+    if(type = 1)
+      num = chooseRow(width);
+    else
+      num = compChoice(height, width, board, key);
   }
 
   if(key == 1)

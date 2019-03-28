@@ -2,30 +2,71 @@
 #include <time.h>
 #include "searchBoard.c"
 
-int win(char piece, int height, int width, char board[height][width]){
-  int choice = 0; //choice needs to be the col that we want to place it in
-  int win;
+int win(int height, int width, char board[height][width], int key){
+  int up, down, across, below;
+  int row = height - 1;
+  char peice;
+  if(key == 1)
+    peice = 'X';
+  else
+    peice = 'O';
+  int col = -1;
   for(int j = 0; j < width; j++){
-    if(board[0][j] == piece){
-
+    for(int i = height-1; i >= 0; i--){
+      if(board[i][j] != 'X' && board[i][j] != 'O' ){
+        row = i;
+        i = -1;
+      }
     }
+    board[row][j] = peice;
+    across = searchRight(1, j, row, height, width, board) + searchLeft(0, j, row, height, width, board);
+    below = searchBelow(1, j, row, height, width, board);
+    up = searchDiagUp(1, j, row, height, width, board);
+    down = searchDiagDown(1, j, row, height, width, board);
+  //  printf("Win: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+    if(across == 4 || below == 4 || up == 4 || down == 4){
+        col = j;
+    }
+    board[row][j] = ' ';
+    if(col != -1)
+      break;
   }
-  return choice;
+  return col;
 }
 
-int block(char piece){
-  int choice = 0;
-
-  return choice;
-}
-
-int best(char piece, int height, int width, char board[height][width]){
-  int choice = 0;
-  for(int i = 0; i < width; i++){
-
+int block(int height, int width, char board[height][width], int key){
+  int up, down, across, below;
+  int row = height - 1;
+  char peice;
+  if(key == 2)
+    peice = 'X';
+  else
+    peice = 'O';
+  int col = -1;
+  for(int j = 0; j < width; j++){
+    for(int i = height-1; i >= 0; i--){
+      if(board[i][j] != 'X' && board[i][j] != 'O' ){
+        row = i;
+        i = -1;
+      }
+    }
+    board[row][j] = peice;
+    across = searchRight(1, j, row, height, width, board) + searchLeft(0, j, row, height, width, board);
+    below = searchBelow(1, j, row, height, width, board);
+    up = searchDiagUp(1, j, row, height, width, board);
+    down = searchDiagDown(1, j, row, height, width, board);
+//    printf("Block: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+    if(across == 4 || below == 4 || up == 4 || down == 4){
+        col = j;
+    }
+    board[row][j] = ' ';
+    if(col != -1)
+      break;
   }
-  return 0;
+
+  return col;
 }
+
 
 int checkGreatest(int height, int width, char board[height][width], int key){
   int up, down, across, below;
@@ -52,7 +93,7 @@ int checkGreatest(int height, int width, char board[height][width], int key){
     below = searchBelow(1, j, row, height, width, board);
     up = searchDiagUp(1, j, row, height, width, board);
     down = searchDiagDown(1, j, row, height, width, board);
-    printf("across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+//    printf("checkGreatest: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
     if(across > max || below > max || up > max || down > max)
       maxCol = j;
     if(across > max)
@@ -72,7 +113,12 @@ int checkGreatest(int height, int width, char board[height][width], int key){
 
 int set(int height, int width, char board[height][width], int key){
   char piece, notPiece;
-  int col = checkGreatest(height, width, board, key);
+  int col = win(height, width, board, key);
+  if(col == -1)
+    col = block(height, width, board, key);
+  if(col == -1)
+    col = checkGreatest(height, width, board, key);
+
   if(key == 1){
     piece = 'X';
   }
