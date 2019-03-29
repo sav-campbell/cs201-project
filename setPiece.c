@@ -3,6 +3,14 @@
 #include <time.h>
 //#include "searchBoard.c"
 #include "bot.c"
+
+/*int isNumeric(char* val){
+  int choice = 0;
+  if(val.isNumeric()){
+    choice = (int)val;
+  }
+}*/
+
 //Obtains a valid row placement for the piece.
 int chooseRow(int width){
   int choice;
@@ -59,12 +67,11 @@ int playerTwo(int num, int height, int width, char board[height][width]){
 int placePiece(int num, int height, int width, char board[height][width], int key, int type){
   int row = height-1;
   int win = 0;
-  while(board[0][num] == 'X' || board[0][num] == 'O'){
-    printf("Invalid choice. Try again.\n");
-    if(type = 1)
+  if(type == 1){
+    while(board[0][num] == 'X' || board[0][num] == 'O'){
+      printf("Invalid choice. Try again.\n");
       num = chooseRow(width);
-    else
-      num = compChoice(height, width, board, key);
+    }
   }
 
   if(key == 1)

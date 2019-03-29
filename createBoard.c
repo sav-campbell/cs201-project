@@ -21,10 +21,12 @@ void printBoard(int x, int y, char print[x][y]){
 
   for(int i = 0; i < x; i++){
     for(int j = 0; j < y; j++){
-        printf("| ");
-        printf("%c ", print[i][j]);
-        if(j == y-1)
-          printf("|");
+      if(j == 0)
+        printf("%d ", i);
+      printf("| ");
+      printf("%c ", print[i][j]);
+      if(j == y-1)
+        printf("|");
     }
     printf("\n");
   }

@@ -51,6 +51,9 @@ int searchDiagUp(int up, int col, int row, int height, int width, char board[hei
     tempCol = tempCol + 1;
   }
   while(board[row][col] == board[row+1][col-1]){
+    if(col == 0){
+      break;
+    }
     up++;
     row = row +1;
     col = col -1;
@@ -63,6 +66,8 @@ int searchDiagDown(int down, int col, int row, int height, int width, char board
   int tempRow = row;
   int tempCol = col;
   while(board[tempRow][tempCol] == board[tempRow-1][tempCol-1]){
+    if(tempCol == 0)
+      break;
     down++;
     tempRow = tempRow - 1;
     tempCol = tempCol - 1;
