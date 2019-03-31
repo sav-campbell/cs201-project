@@ -125,7 +125,7 @@ int generateBoard(int playType){
       printf("\nPlayer Two's Turn: \n");
       win = placePiece(compChoice(height, width, board, 2), height, width, board, 2, 2);
       pieces++;
-      if(pieces == width*height)
+      if(pieces == width*height && win == 0)
         win = 3;
     } break;
     case 2:
@@ -144,7 +144,7 @@ int generateBoard(int playType){
       printf("\nPlayer Two's Turn:\n");
       win = placePiece(chooseRow(width), height, width, board, 2, 1);
       pieces++;
-      if(pieces == width*height)
+      if(pieces == width*height && win == 0)
         win = 3;
     } break;
     case 3:
@@ -163,7 +163,7 @@ int generateBoard(int playType){
       printf("\nPlayer Two's Turn:\n");
       win = placePiece(compChoice(height, width, board, 2), height, width, board, 2, 2);
       pieces++;
-      if(pieces == width*height)
+      if(pieces == width*height && win == 0)
         win = 3;
     } break;
     default: break;

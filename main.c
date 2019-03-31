@@ -1,3 +1,5 @@
+/*Savannah Campbell sjcampbell3@crimson.ua
+The main controls the game mode and user menu for Connect 4!*/
 #include <stdio.h>
 #include <ctype.h>
 #include "createBoard.c"
