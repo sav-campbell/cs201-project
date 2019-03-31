@@ -18,6 +18,9 @@ Once there has been a win or a tie, the user is shown the player scores and aske
 to play again, they will have the option of changing the board size. Any wins recorded before the user exits the game, are added to
 the overall player scores. 
 
+You can view a YouTube video of me walking through the program and its game types here:
+https://youtu.be/xH4CkU3phHw 
+
 In order to play Connect 4, follow these steps:
 1. Download the zip file from github
 2. Type "gcc -Wall main.c -std=c11 -o connect4" (capitalization matters!)
