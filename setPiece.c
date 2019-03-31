@@ -1,23 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include "searchBoard.c"
+#include <ctype.h>
+#include <string.h>
 #include "bot.c"
 
-/*int isNumeric(char* val){
+int numCheck(int x, char val[x]){
   int choice = 0;
-  if(val.isNumeric()){
-    choice = (int)val;
+  for(int i = 0; i < x; i++){
+    if(!isdigit(val[i]))
+      choice = -1;
   }
-}*/
+  if(choice != -1)
+    choice = atoi(val);
+  else{
+    while(choice == -1){
+      printf("\nPlease enter a valid input. (Integer input)");
+      scanf("%49s", val);
+      choice = numCheck(strlen(val), val);
+    }
+  }
+  //Check printf("choice: %d ", choice);
+  return choice;
+}
+
+void initialize(int x, char arr[x]){
+  for(int i = 0; i < x; i++)
+    arr[i] = ' ';
+}
 
 //Obtains a valid row placement for the piece.
 int chooseRow(int width){
   int choice;
+  char answer[20];
+  initialize(20, answer);
   while(1)
   {
     printf("\n\nWhat column would you like to place a piece in?\n");
-    scanf("%d", &choice);
+    scanf("%19s", answer);
+    choice = numCheck(strlen(answer), answer);
     if(choice > width || choice <= 0)
       printf("Invalid choice. Try again.\n");
     else

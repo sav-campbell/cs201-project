@@ -6,7 +6,10 @@ int main(void){
   int players, winner;
   int score1 = 0;
   int score2 = 0;
-  char answer;
+  char answer[10];
+  initialize(10, answer);
+  char choice[10];
+  initialize(10, choice);
 
   printf("Welcome to Connect Four!! \n\nPlease choose a game type:\n\n");
   printf("1. Player vs. Computer\n");
@@ -14,7 +17,8 @@ int main(void){
   printf("3. Computer vs. Computer\n");
   while(1){
     printf("\nPlease type \"1\" or \"2\" or \"3\"\n");
-    scanf("%d", &players);
+    scanf("%9s", choice);
+    players = numCheck(strlen(choice), choice);
     if(players == 1){
       printf("\nPlayer vs. Computer Selected. Generating Board.\n\n");
       break;
@@ -47,10 +51,20 @@ int main(void){
 
     printf("\nScore: \nPlayer 1: %d \nPlayer 2: %d", score1, score2);
     printf("\nWould you like to play again (Y/N)?");
-    scanf(" %c", &answer);
-    answer = tolower(answer);
-    if(answer == 'n')
+    scanf("%9s", answer);
+    if(tolower(answer[0]) != 'n' && tolower(answer[0]) != 'y'){
+      while(1){
+        printf("\nInvalid input. Enter 'y' or 'n'");
+        scanf("%9s", answer);
+        if(tolower(answer[0]) == 'y')
+          break;
+        else if(tolower(answer[0] == 'n'))
+          break;
+      }
+    }
+    if(tolower(answer[0]) == 'n')
       break;
   }
+
   return 0;
 }

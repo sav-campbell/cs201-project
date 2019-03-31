@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <time.h>
 #include "searchBoard.c"
 
 int randCheck = 0;
@@ -30,7 +29,7 @@ int win(int height, int width, char board[height][width], int key){
         up = searchDiagUp(1, j, row, height, width, board);
         down = searchDiagDown(1, j, row, height, width, board);
     }
-    printf("Win: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+  //Check  printf("Win: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
     if(across == 4 || below == 4 || up == 4 || down == 4){
         col = j;
     }
@@ -68,7 +67,7 @@ int block(int height, int width, char board[height][width], int key){
         down = searchDiagDown(1, j, row, height, width, board);
     }
 
-   printf("Block: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+//Check   printf("Block: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
     if(across == 4 || below == 4 || up == 4 || down == 4){
         col = j;
     }
@@ -82,7 +81,6 @@ int block(int height, int width, char board[height][width], int key){
 
 void randomize(){
   if(randCheck == 0){
-    time_t t;
     srand((unsigned) 100);
     randCheck++;
   }
@@ -116,7 +114,7 @@ int checkGreatest(int height, int width, char board[height][width], int key){
       up = searchDiagUp(1, j, row, height, width, board);
       down = searchDiagDown(1, j, row, height, width, board);
     }
-//    printf("checkGreatest: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
+// Check   printf("checkGreatest: across: %d, below: %d, up: %d, down: %d\n", across, below, up, down);
     if(across > max || below > max || up > max || down > max)
       maxCol = j;
     if(across > max)
@@ -135,7 +133,6 @@ int checkGreatest(int height, int width, char board[height][width], int key){
 
 
 int set(int height, int width, char board[height][width], int key){
-  char piece, notPiece;
   int col = 0;
   col = win(height, width, board, key);
   if(col == -1)
@@ -143,10 +140,5 @@ int set(int height, int width, char board[height][width], int key){
   if(col == -1)
     col = checkGreatest(height, width, board, key);
 
-  if(key == 1){
-    piece = 'X';
-  }else{
-    piece = 'O';
-  }
   return col;
 }

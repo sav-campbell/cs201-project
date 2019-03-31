@@ -6,6 +6,7 @@ to maintain rather than working through the linked list and graph each time.
 */
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "setPiece.c"
 
 //This function initializes the board array that the user will see.
@@ -21,8 +22,8 @@ void printBoard(int x, int y, char print[x][y]){
 
   for(int i = 0; i < x; i++){
     for(int j = 0; j < y; j++){
-      if(j == 0)
-        printf("%d ", i);
+      /*Check if(j == 0)
+        printf("%d ", i);*/
       printf("| ");
       printf("%c ", print[i][j]);
       if(j == y-1)
@@ -45,24 +46,39 @@ void printNum(int x, int print[x]){
   }
 }
 
+
 int generateBoard(int playType){
   int width, height;
 
   //This loop gets a valid size for the board
   while(1){
-    char answer = ' ';
+    char answer[10];
+    initialize(10, answer);
+    char input[50];
+    initialize(50, input);
     printf("\nWhat is the height of the board?");
-    scanf("%d", &height);
+    scanf("%49s", input);
+    height = numCheck(strlen(input), input);
     printf("\nWhat is the width of the board?");
-    scanf("%d", &width);
+    scanf("%49s", input);
+    width = numCheck(strlen(input), input);
     if(height < 4 || width < 4)
       printf("\nThe height and width must be greater than or equal to 4.\nTry again.\n");
     else if(height > 40 || width > 40){
       printf("\nBoard sizes greater than 40x40 will have unweildy screen handling.");
       printf("\nDo you wish to continue anyway (Y/N)?");
-      scanf("%c", &answer);
-      answer = tolower(answer);
-      if(answer == 'y')
+      scanf("%9s", answer);
+      if(tolower(answer[0]) != 'n' && tolower(answer[0]) != 'y'){
+        while(1){
+          printf("\nInvalid input. Enter 'y' or 'n'");
+          scanf("%9s", answer);
+          if(tolower(answer[0]) == 'y')
+            break;
+          else if(tolower(answer[0] == 'n'))
+            break;
+        }
+      }
+      else if(tolower(answer[0]) == 'y')
         break;
     }
     else
